@@ -73,7 +73,7 @@ MSVA<-function(data,seed=1234,plot=T,QC.picked=c(1,2,3,4)){
       pc<-paste("PC",1:svobj$n.sv,sep="")
       pc_c<-paste(pc,collapse="+")
       formula1<-paste(formula,pc_c,"+batch",sep="")
-      model_lm<-lm(formula1,data=as.data.frame(data_model_sample))
+      model_lm<-lm(formula1,data=as.data.frame(data_model_QC))
       data_msva_sample[,i]<-data_model_sample[,i]-predict(model_lm,newdata=data_model_sample[,c(i,(ncol(data_msva)+1):ncol(data_model_sample))])+mean(data_model_sample[,i],na.rm=T)
     }
     rownames(data_msva_sample)<-rownames(data_model_sample)
@@ -111,7 +111,7 @@ MSVA<-function(data,seed=1234,plot=T,QC.picked=c(1,2,3,4)){
 
       formula<-paste(y,"~",sep="")
       formula1<-paste(formula,pc_c,sep="")
-      model_lm<-lm(formula1,data=as.data.frame(data_model_sample))
+      model_lm<-lm(formula1,data=as.data.frame(data_model_QC))
       data_msva_sample[,i]<-data_model_sample[,i]-predict(model_lm,newdata=data_model_sample[,c(i,(ncol(data_msva)+1):ncol(data_model_sample))])+mean(data_model_sample[,i],na.rm=T)
     }
     rownames(data_msva_sample)<-rownames(data_model_sample)
